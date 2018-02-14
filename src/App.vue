@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import MenuComponent from './MenuComponent.vue'
-import FooterComponent from './FooterComponent.vue'
+import MenuComponent from './public/components/MenuComponent.vue'
+import FooterComponent from './public/components/FooterComponent.vue'
 export default {
   name: 'app',
   components: {MenuComponent, FooterComponent}, //Register other components
