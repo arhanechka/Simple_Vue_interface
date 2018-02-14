@@ -51,7 +51,7 @@ export default {
     },
     onSubmit(evt) {
          evt.preventDefault();
-        let url = 'http://localhost:3000/loginexp/signin';
+        let url = 'http://localhost:3000/user/signin';
         let param = {
           email: this.email,
           password: this.password

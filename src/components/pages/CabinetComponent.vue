@@ -3,7 +3,7 @@
         <div class="container">
             <menu-component></menu-component>
   <h3>Welcome, User!</h3>
-    <form method="GET" action="/wallets">
+    <form @submit="onSubmit" action="/wallets">
         <fieldset>
             <legend>View my wallets</legend>
 
@@ -12,7 +12,7 @@
     </form>
 
 
-<form method="POST" action="/wallets">
+<form action="/wallets">
     <fieldset>
         <legend>Generate new wallet</legend>
 
@@ -33,8 +33,10 @@ export default {
   data () {
     return {
       msg: 'Welcome to Avra Token page!', 
-      email:'',
-      password:''
+      wallets:[],
+      name:'',
+      id:'5a840e808d3ac54bec9ad819',
+      password: 'b052ad71d9fcd26e996e13d076a7eb11827043d5'
     }
   },
   methods: {
@@ -49,17 +51,15 @@ export default {
     },
     onSubmit(evt) {
          evt.preventDefault();
-        let url = 'http://localhost:3000/routes/login';
+          console.log(this.id);
+        let url = 'http://localhost:3000/wallet/wallets';
         let param = {
-          email: this.email,
-          password: this.password
-      };
-      console.log(this.email);
-      console.log(this.password);
-        axios.post(url, param).then((response) => {
+          id: this.id,
+         };
+     
+       axios.post(url, param).then((response) => {
           console.log(response);
           alert(response.data.msg);
-          this.$router.push('/')
          }).catch((error) => {
           console.log(error);
         })
