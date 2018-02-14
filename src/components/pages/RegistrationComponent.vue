@@ -7,26 +7,28 @@
         <legend>Registration</legend>
         <div class="form-group">
             <label for="exampleInputEmail1">Name</label>
-            <input type="text" name = "name" class="form-control" id="exampleName" aria-describedby="emailHelp" placeholder="Enter name" data-cip-id="exampleInputEmail1">
+            <input type="text" name = "name" class="form-control" id="exampleName" aria-describedby="emailHelp" placeholder="Enter name" data-cip-id="exampleInputEmail1" v-model="name">
         </div>
 
         <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
-            <input type="email" name = "email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" data-cip-id="exampleInputEmail1">
+            <input type="email" name = "email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" data-cip-id="exampleInputEmail1" v-model="email">
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Password</label>
-            <input type="password" name = "password" class="form-control" id="exampleInputPassword1" placeholder="Password" data-cip-id="exampleInputPassword1">
+            <input type="password" name = "password" class="form-control" id="exampleInputPassword1" placeholder="Password" data-cip-id="exampleInputPassword1" v-model="password">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </fieldset>
 </form>
  <footer-component></footer-component>
         </div>
+  </div>
 </template>
 <script>
-import MenuComponent from './MenuComponent.vue'
-import FooterComponent from './FooterComponent.vue'
+import MenuComponent from '../MenuComponent.vue'
+import FooterComponent from '../FooterComponent.vue'
+ import axios from 'axios';  
 export default {
   name: 'reg',
   components: {MenuComponent, FooterComponent}, //Register other components

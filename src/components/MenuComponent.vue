@@ -16,10 +16,10 @@
             </li>
             <li class="nav-item">
 
-               <a class="nav-link" href="/login">Login</a>
+               <a class="nav-link" href="#/login">Login</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/registration">Registration</a>
+                <a class="nav-link" href="#/reg">Registration</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" method="POST" action = "/logout">
