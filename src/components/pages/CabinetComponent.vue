@@ -1,24 +1,22 @@
 <template>
-  <div id="login">
+  <div id="cabinet">
         <div class="container">
             <menu-component></menu-component>
-  <form @submit="onSubmit" @reset="onReset">
-    <fieldset>
-        <legend>Login form</legend>
+  <h3>Welcome, User!</h3>
+    <form method="GET" action="/wallets">
+        <fieldset>
+            <legend>View my wallets</legend>
 
-        <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" name="email" id="exampleInputEmail1" 
-            aria-describedby="emailHelp" placeholder="Enter email" 
-            data-cip-id="exampleInputEmail1" v-model="email">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" name="password" 
-            id="exampleInputPassword1" placeholder="Password" 
-            data-cip-id="exampleInputPassword1" v-model="password">
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </fieldset>
+    </form>
+
+
+<form method="POST" action="/wallets">
+    <fieldset>
+        <legend>Generate new wallet</legend>
+
+        <button type="submit" class="btn btn-primary">Generate</button>
     </fieldset>
 </form>
  <footer-component></footer-component>
@@ -30,7 +28,7 @@ import MenuComponent from '../MenuComponent.vue'
 import FooterComponent from '../FooterComponent.vue'
  import axios from 'axios';  
 export default {
-  name: 'login',
+  name: 'cabinet',
   components: {MenuComponent, FooterComponent}, //Register other components
   data () {
     return {
@@ -51,7 +49,7 @@ export default {
     },
     onSubmit(evt) {
          evt.preventDefault();
-        let url = 'http://localhost:3000/loginexp/signin';
+        let url = 'http://localhost:3000/routes/login';
         let param = {
           email: this.email,
           password: this.password
@@ -61,7 +59,7 @@ export default {
         axios.post(url, param).then((response) => {
           console.log(response);
           alert(response.data.msg);
-          this.$router.push('cabinet')
+          this.$router.push('/')
          }).catch((error) => {
           console.log(error);
         })
@@ -71,4 +69,3 @@ export default {
 
 
 </script>
-

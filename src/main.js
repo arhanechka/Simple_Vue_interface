@@ -19,9 +19,4 @@ new Vue({
   template: '<App/>'
 })
 
-new Vue({
-  el: 'reg',
-  router,
-  components: { RegistrationComponent },
-  template: '<reg/>'
-})
+
