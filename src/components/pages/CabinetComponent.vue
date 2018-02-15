@@ -16,7 +16,7 @@
     <fieldset>
         <legend>Generate new wallet</legend>
 
-        <button type="submit" class="btn btn-primary">Generate</button>
+        <button type="submit" class="btn btn-primary" v-on:click="generateWallet">Generate</button>
     </fieldset>
 </form>
  <footer-component></footer-component>
@@ -63,9 +63,23 @@ export default {
          }).catch((error) => {
           console.log(error);
         })
-      }
+      },
+      generateWallet(event) {
+        if (event) event.preventDefault();
+         console.log(this.id);
+        let url = 'http://localhost:3000/wallet/newWallet';
+        let param = {
+          id: this.id,
+          password: this.password
+         };
+     
+       axios.post(url, param).then((response) => {
+          console.log(response);
+          alert(response.data.msg);
+         }).catch((error) => {
+          console.log(error);
+        })
     }
   }
-
-
-</script>
+}
+  </script>
