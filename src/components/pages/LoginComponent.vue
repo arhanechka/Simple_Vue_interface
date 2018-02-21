@@ -54,7 +54,7 @@ export default {
      checkCurrentLogin () {
       if (this.currentUser) {
         console.log('current user login = ' + JSON.stringify(this.currentUser))
-        this.$router.replace(this.$route.query.redirect || '/profile')
+        this.$router.replace(this.$route.query.redirect || '/cabinet')
       }
     },
     login () {

@@ -67,10 +67,7 @@ export default {
           email: this.email,
           password: this.password
       };
-      console.log(this.name);
-      console.log(this.email);
-      console.log(this.password);
-        axios.post(url, param).then((response) => {
+         axios.post(url, param).then((response) => {
           console.log(response);
           alert(response.data.msg);
           this.$router.push('/login')

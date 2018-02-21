@@ -19,7 +19,8 @@
 </template>
 <script>
 
- import axios from 'axios';  
+ import axios from 'axios'; 
+ import { mapGetters } from 'vuex' 
 export default {
   name: 'cabinet',
   
@@ -32,25 +33,18 @@ export default {
       password: 'b052ad71d9fcd26e996e13d076a7eb11827043d5'
     }
   },
+  computed: {
+    ...mapGetters({ currentUser: 'currentUser' })
+  },
   methods: {
-     onReset(evt) {
-      evt.preventDefault();
-      /* Reset our form values */
-      this.email = "";
-      this.password = "";
-      /* Trick to reset/clear native browser form validation state */
-      this.$nextTick(() => {
-       });
-    },
-    onSubmit(evt) {
+         onSubmit(evt) {
          evt.preventDefault();
-          console.log(this.id);
-        let url = 'http://localhost:3000/wallet/wallets';
-        let param = {
-          id: this.id,
-         };
-     
-       axios.post(url, param).then((response) => {
+         let url = 'http://localhost:3000/wallet/wallets/';
+         console.log('current user = ' + JSON.stringify(this.currentUser))
+     let param = this.currentUser.id;
+      url = 'http://localhost:3000/wallet/wallets/'+param;
+     console.log(url)
+       axios.get(url).then((response) => {
           console.log(response);
           alert(response.data.msg);
          }).catch((error) => {

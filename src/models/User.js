@@ -10,7 +10,10 @@ export default class User {
      // var decoded = jwt.verify(token, 'yohohosecret')
     //  console.log('from user, token = ' + token)
       console.log('from user, decoded = ' + JSON.stringify(obj))
-      return new User(obj._doc)
+      let user = new User(obj);
+      console.log("user")
+      console.log(user.id)
+      return user
       // return new User(decoded)
     } catch (_) {
       return null
