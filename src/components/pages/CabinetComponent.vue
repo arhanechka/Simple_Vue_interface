@@ -2,11 +2,11 @@
   <div id="cabinet">
         
   <h3>Welcome, {{name}}!</h3>
-    <form @submit="onSubmit" action="/wallets">
+    <form>
         <fieldset>
             <legend>My wallets</legend>
 
-            <button type="submit" class="btn btn-primary">View</button>
+            <button type="submit" v-on:click="getWallet" class="btn btn-primary">View</button>
         </fieldset>
         </form>
         <div  v-if="wallets">
@@ -71,13 +71,13 @@ export default {
         console.log("current user login = " + JSON.stringify(this.currentUser));
         this.name = this.currentUser.name;
         this.id = this.currentUser.id;
+        
       }
     },
-    onSubmit(evt) {
-      evt.preventDefault();
+    getWallet() {
+      // evt.preventDefault();
       console.log("current user = " + JSON.stringify(this.currentUser));
-      let param = this.id;
-      let url = "/wallet/wallets/" + param;
+      let url = "/wallet/wallets/" + this.id;
       console.log(url);
       this.$http
         .get(url)
@@ -85,7 +85,7 @@ export default {
           console.log(response);
           alert(response.data.wallets.length + " wallets has been found!");
           this.wallets = response.data.wallets;
-          this.$router.replace(this.$route.query.redirect || "/cabinet");
+          this.$router.redirect('cabinet');
         })
         .catch(error => {
           console.log(error);
@@ -94,17 +94,14 @@ export default {
     generateWallet(event) {
       if (event) event.preventDefault();
       console.log(this.id);
-      let url = "http://localhost:3000/wallet/newWallet";
-      let param = {
-        id: this.id,
-        password: this.password
-      };
-
-      this.http
-        .post(url, param)
+      let url = 'wallet/newWallet/'+this.id;
+      console.log(url)
+         this.$http
+        .post(url)
         .then(response => {
           console.log(response);
           alert(response.data.msg);
+          this.$router.redirect('cabinet');
         })
         .catch(error => {
           console.log(error);
@@ -119,7 +116,7 @@ export default {
         .then(response => {
           console.log(response);
           alert(response.data.msg);
-          this.$router.push("cabinet");
+          this.$router.push('cabinet');
         })
         .catch(error => {
           console.log(error);
