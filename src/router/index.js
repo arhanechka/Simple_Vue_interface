@@ -5,6 +5,7 @@ import RegistrationComponent from '../components/pages/RegistrationComponent.vue
 import MainComponent from '../components/pages/MainComponent.vue'
 import LoginComponent from '../components/pages/LoginComponent.vue'
 import CabinetComponent from '../components/pages/CabinetComponent.vue'
+import Token from '../components/pages/Token.vue'
 import Logout from '../components/Logout.vue'
 
 
@@ -36,6 +37,11 @@ export default new Router({
       path: '/logout',
       name: 'Logout',
       component: Logout
+    },
+    {
+      path: '/token',
+      name: 'Token',
+      component: Token
     }
 
   ]

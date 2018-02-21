@@ -58,14 +58,14 @@ export default {
       }
     },
     login () {
-      let url = 'http://localhost:3000/user/signin';
+      let url = '/user/signin';
         let param = {
           email: this.email,
           password: this.password
       };
       console.log(this.email);
       console.log(this.password);
-      axios
+      this.$http
         .post(url, param)
         .then(request => this.loginSuccessful(request))
         .catch(() => this.loginFailed())
@@ -78,6 +78,7 @@ export default {
         return
       }
       this.error = false
+      alert(req.data.msg)
       localStorage.token = req.data.token
       this.$store.dispatch('login')
       //this.$router.replace(this.$route.query.redirect || '/profile')

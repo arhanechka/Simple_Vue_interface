@@ -20,6 +20,10 @@
 
                <a class="nav-link" href="#/cabinet">Cabinet</a>
             </li>
+            <li class="nav-item">
+
+               <a class="nav-link" href="#/token">Token</a>
+            </li>
            </ul>
         <form class="form-inline my-2 my-lg-0" method="POST" action = "/logout">
 

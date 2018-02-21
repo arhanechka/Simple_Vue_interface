@@ -1,25 +1,28 @@
 <template>
-  <div id="cabinet">
+  <div id="token">
         
-  <h3>Welcome, User!</h3>
-    <form @submit="onSubmit" action="/wallets">
-        <fieldset>
-            <legend>View my wallets</legend>
+  <h3>Avra Token page</h3>
+  
+  <h3>You have <span ><span id="balance"></span> AVRA</span></h3>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </fieldset>
-    </form>
-<form action="/wallets">
-    <fieldset>
-        <legend>Generate new wallet</legend>
-        <button type="submit" class="btn btn-primary" v-on:click="generateWallet">Generate</button>
-    </fieldset>
-</form>
+  <br>
+  <h1>Send AvraCoin</h1>
+  <br>
+  <label for="amount">Amount:</label>
+  <input type="text" id="amount" placeholder="e.g., 95"> 
+  <br><label for="receiver">To Address:</label>
+  <input type="text" id="receiver" placeholder="e.g., 0x93e66d9baea28c17d9fc393b53e3fbdd76899dae">
+  <br><br><button id="send" onclick="App.sendCoin()">Send MetaCoin</button>
+  <br><br>
+  <span id="status"></span>
+  <br>
+  <span class="hint"><strong>Hint:</strong> open the browser developer console to view any errors and warnings.</span>
+
    </div>
 </template>
 <script>
 
- import axios from 'axios'; 
+ 
  import { mapGetters } from 'vuex' 
 export default {
   name: 'cabinet',
