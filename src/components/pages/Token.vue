@@ -1,19 +1,25 @@
 <template>
   <div id="token">
         
-  <h3>Avra Token page</h3>
-  
-  <h3>You have <span ><span id="balance"></span> AVRA</span></h3>
-
-  <br>
-  <h1>Send AvraCoin</h1>
-  <br>
-  <label for="amount">Amount:</label>
-  <input type="text" id="amount" placeholder="e.g., 95"> 
-  <br><label for="receiver">To Address:</label>
-  <input type="text" id="receiver" placeholder="e.g., 0x93e66d9baea28c17d9fc393b53e3fbdd76899dae">
-  <br><br><button id="send" onclick="App.sendCoin()">Send MetaCoin</button>
+  <h1>Avra Token</h1>
+  <h3>Total supply of AVRA: <span id="supply"></span> </h3>
+  <h4>You can buy Avra at this address: <span id="contract_address"></span></h4>
+  <h3>You have <span id="balance"></span> AVRA</h3>
+   <button id="check" class="btn btn-success disabled" onclick="App.refreshBalance()">Check your balance</button>
   <br><br>
+  <h3>Buy Avra</h3>
+  <label for="amount">Amount:</label>
+  <input type="text" class="form-control"  id="amount" placeholder="e.g., 95">
+  <!--<br><label for="receiver">To Address:</label><input type="text" id="receiver" placeholder="e.g., 0x93e66d9baea28c17d9fc393b53e3fbdd76899dae"></input>-->
+  <br><button id="send" class="btn btn-primary" onclick="App.sendCoin()">Buy Avra</button>
+  <br>
+  <h3>Transfer Avra</h3>
+  <label for="amount1">Amount:</label>
+  <input type="text" class="form-control" id="amount1" placeholder="e.g., 95">
+  <br><label for="receiver">To Address:</label>
+  <input type="text" class="form-control" id="receiver" placeholder="e.g., 0x93e66d9baea28c17d9fc393b53e3fbdd76899dae">
+  <br><button id="send1" class="btn btn-primary" onclick="App.transferCoin()">Transfer</button>
+  <br>
   <span id="status"></span>
   <br>
   <span class="hint"><strong>Hint:</strong> open the browser developer console to view any errors and warnings.</span>
@@ -25,7 +31,7 @@
  
  import { mapGetters } from 'vuex' 
 export default {
-  name: 'cabinet',
+  name: 'token',
   
   data () {
     return {

@@ -21,7 +21,8 @@ export default class User {
   }
 
   constructor (userCredentials) {
-    this.id = userCredentials._id
+    this.id = userCredentials._id;
+    this.name = userCredentials.name;
     // this.admin = admin
     this.email = userCredentials.email
   }

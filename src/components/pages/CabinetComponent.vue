@@ -1,7 +1,7 @@
 <template>
   <div id="cabinet">
         
-  <h3>Welcome, User!</h3>
+  <h3>Welcome, {{name}}!</h3>
     <form @submit="onSubmit" action="/wallets">
         <fieldset>
             <legend>View my wallets</legend>
@@ -28,7 +28,7 @@ export default {
     return {
       msg: 'Welcome to Avra Token page!', 
       wallets:[],
-      name:'',
+      name: '',
       id:'5a840e808d3ac54bec9ad819',
       password: 'b052ad71d9fcd26e996e13d076a7eb11827043d5'
     }
@@ -36,7 +36,20 @@ export default {
   computed: {
     ...mapGetters({ currentUser: 'currentUser' })
   },
+   created () {
+    this.checkCurrentLogin()
+  },
+  updated () {
+    this.checkCurrentLogin()
+  },
   methods: {
+    checkCurrentLogin () {
+      if (this.currentUser) {
+        console.log('current user login = ' + JSON.stringify(this.currentUser))
+        this.name = this.currentUser.name
+      }
+    },
+  
          onSubmit(evt) {
          evt.preventDefault();
       console.log('current user = ' + JSON.stringify(this.currentUser))
@@ -60,7 +73,7 @@ export default {
           password: this.password
          };
      
-       axios.post(url, param).then((response) => {
+       $this.http.post(url, param).then((response) => {
           console.log(response);
           alert(response.data.msg);
          }).catch((error) => {
