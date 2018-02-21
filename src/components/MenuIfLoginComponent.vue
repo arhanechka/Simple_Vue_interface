@@ -18,12 +18,9 @@
             </li>
             <li class="nav-item">
 
-               <a class="nav-link" href="#/login">Login</a>
+               <a class="nav-link" href="#/cabinet">Cabinet</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#/reg">Registration</a>
-            </li>
-        </ul>
+           </ul>
         <form class="form-inline my-2 my-lg-0" method="POST" action = "/logout">
 
     <router-link to="logout">
@@ -41,7 +38,7 @@ import {
   } from 'vuex'
   
   export default {
-    name: 'MenuComponent',
+    name: 'MenuIfLoginComponent',
     data(){
             return {
                 company: 'Avra'

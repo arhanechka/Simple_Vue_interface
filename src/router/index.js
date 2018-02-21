@@ -5,6 +5,8 @@ import RegistrationComponent from '../components/pages/RegistrationComponent.vue
 import MainComponent from '../components/pages/MainComponent.vue'
 import LoginComponent from '../components/pages/LoginComponent.vue'
 import CabinetComponent from '../components/pages/CabinetComponent.vue'
+import Logout from '../components/Logout.vue'
+
 
 import App from '@/App'
 Vue.use(Router)
@@ -29,6 +31,11 @@ export default new Router({
       path: '/cabinet',
       name: 'CabinetComponent',
       component: CabinetComponent
+    },
+    {
+      path: '/logout',
+      name: 'Logout',
+      component: Logout
     }
 
   ]

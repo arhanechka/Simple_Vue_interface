@@ -1,7 +1,6 @@
 <template>
   <div id="cabinet">
-        <div class="container">
-            <menu-component></menu-component>
+        
   <h3>Welcome, User!</h3>
     <form @submit="onSubmit" action="/wallets">
         <fieldset>
@@ -10,26 +9,20 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </fieldset>
     </form>
-
-
 <form action="/wallets">
     <fieldset>
         <legend>Generate new wallet</legend>
-
         <button type="submit" class="btn btn-primary" v-on:click="generateWallet">Generate</button>
     </fieldset>
 </form>
- <footer-component></footer-component>
-        </div>
-  </div>
+   </div>
 </template>
 <script>
-import MenuComponent from '../MenuComponent.vue'
-import FooterComponent from '../FooterComponent.vue'
+
  import axios from 'axios';  
 export default {
   name: 'cabinet',
-  components: {MenuComponent, FooterComponent}, //Register other components
+  
   data () {
     return {
       msg: 'Welcome to Avra Token page!', 

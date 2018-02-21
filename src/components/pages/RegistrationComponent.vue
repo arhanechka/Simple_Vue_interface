@@ -1,7 +1,6 @@
 <template>
   <div id="reg">
-        <div class="container">
-            <menu-component></menu-component>
+       
   <form method="POST" @submit="onSubmit" @reset="onReset">
     <fieldset>
         <legend>Registration</legend>
@@ -27,17 +26,17 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </fieldset>
 </form>
- <footer-component></footer-component>
-        </div>
+ 
   </div>
 </template>
 <script>
-import MenuComponent from '../MenuComponent.vue'
-import FooterComponent from '../FooterComponent.vue'
+
  import axios from 'axios';  
+  import { mapGetters } from 'vuex'
+
 export default {
   name: 'reg',
-  components: {MenuComponent, FooterComponent}, //Register other components
+ 
   data () {
     return {
       msg: 'Welcome to Avra Token page!',
@@ -45,6 +44,9 @@ export default {
       email: '',
       password: ''
     }
+  },
+  computed: {
+    ...mapGetters({ currentUser: 'currentUser' })
   },
   methods: {
      onReset(evt) {
@@ -71,7 +73,7 @@ export default {
         axios.post(url, param).then((response) => {
           console.log(response);
           alert(response.data.msg);
-          this.$router.push('/cabinet')
+          this.$router.push('/login')
          }).catch((error) => {
           console.log(error);
         })

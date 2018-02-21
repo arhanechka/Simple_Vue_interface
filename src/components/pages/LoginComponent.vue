@@ -1,8 +1,7 @@
 <template>
   <div id="login">
-        <div class="container">
-            <menu-component></menu-component>
-  <form @submit="onSubmit" @reset="onReset">
+       
+  <form @submit.prevent="login">
     <fieldset>
         <legend>Login form</legend>
 
@@ -21,23 +20,26 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </fieldset>
 </form>
- <footer-component></footer-component>
-        </div>
+
   </div>
 </template>
 <script>
-import MenuComponent from '../MenuComponent.vue'
-import FooterComponent from '../FooterComponent.vue'
+
  import axios from 'axios';  
+ import { mapGetters } from 'vuex'
+
 export default {
   name: 'login',
-  components: {MenuComponent, FooterComponent}, //Register other components
+ 
   data () {
     return {
       msg: 'Welcome to Avra Token page!', 
       email:'',
       password:''
     }
+  },
+  computed: {
+    ...mapGetters({ currentUser: 'currentUser' })
   },
   methods: {
      onReset(evt) {
@@ -49,26 +51,45 @@ export default {
       this.$nextTick(() => {
        });
     },
-    onSubmit(evt) {
-         evt.preventDefault();
-        let url = 'http://localhost:3000/user/signin';
+     checkCurrentLogin () {
+      if (this.currentUser) {
+        console.log('current user login = ' + JSON.stringify(this.currentUser))
+        this.$router.replace(this.$route.query.redirect || '/profile')
+      }
+    },
+    login () {
+      let url = 'http://localhost:3000/user/signin';
         let param = {
           email: this.email,
           password: this.password
       };
       console.log(this.email);
       console.log(this.password);
-        axios.post(url, param).then((response) => {
-          console.log(response);
-          alert(response.data.msg);
-          this.$router.push('cabinet')
-         }).catch((error) => {
-          console.log(error);
-        })
+      axios
+        .post(url, param)
+        .then(request => this.loginSuccessful(request))
+        .catch(() => this.loginFailed())
+      console.log(this.email)
+      console.log(this.password)
+    },
+    loginSuccessful (req) {
+      if (!req.data.token) {
+        this.loginFailed()
+        return
       }
+      this.error = false
+      localStorage.token = req.data.token
+      this.$store.dispatch('login')
+      //this.$router.replace(this.$route.query.redirect || '/profile')
+      this.$router.push('cabinet')
+    },
+
+    loginFailed () {
+      this.error = 'Login failed!'
+      this.$store.dispatch('logout')
+      delete localStorage.token
     }
-  }
-
-
+}
+}
 </script>
 
