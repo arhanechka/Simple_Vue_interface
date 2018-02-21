@@ -24,12 +24,7 @@
                 <a class="nav-link" href="#/reg">Registration</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0" method="POST" action = "/logout">
-
-    <router-link to="logout">
-<button class="btn btn-outline-warning">Logout</button>
-</router-link>
-</form> 
+      
     </div>
 </nav>
 </header>

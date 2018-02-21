@@ -24,73 +24,72 @@
   </div>
 </template>
 <script>
-
- import axios from 'axios';  
- import { mapGetters } from 'vuex'
+import axios from "axios";
+import { mapGetters } from "vuex";
 
 export default {
-  name: 'login',
- 
-  data () {
+  name: "login",
+
+  data() {
     return {
-      msg: 'Welcome to Avra Token page!', 
-      email:'',
-      password:''
-    }
+      msg: "Welcome to Avra Token page!",
+      email: "",
+      password: ""
+    };
   },
   computed: {
-    ...mapGetters({ currentUser: 'currentUser' })
+    ...mapGetters({ currentUser: "currentUser" })
   },
   methods: {
-     onReset(evt) {
+    onReset(evt) {
       evt.preventDefault();
       /* Reset our form values */
       this.email = "";
       this.password = "";
       /* Trick to reset/clear native browser form validation state */
-      this.$nextTick(() => {
-       });
+      this.$nextTick(() => {});
     },
-     checkCurrentLogin () {
+    checkCurrentLogin() {
       if (this.currentUser) {
-        console.log('current user login = ' + JSON.stringify(this.currentUser))
-        this.$router.replace(this.$route.query.redirect || '/cabinet')
+        console.log("current user login = " + JSON.stringify(this.currentUser));
+        this.$router.replace(this.$route.query.redirect || "/cabinet");
       }
     },
-    login () {
-      let url = '/user/signin';
-        let param = {
-          email: this.email,
-          password: this.password
+    login() {
+      let url = "/user/signin";
+      let param = {
+        email: this.email,
+        password: this.password
       };
       console.log(this.email);
       console.log(this.password);
       this.$http
         .post(url, param)
         .then(request => this.loginSuccessful(request))
-        .catch(() => this.loginFailed())
-      console.log(this.email)
-      console.log(this.password)
+        .catch(() => this.loginFailed());
+      console.log(this.email);
+      console.log(this.password);
     },
-    loginSuccessful (req) {
+    loginSuccessful(req) {
       if (!req.data.token) {
-        this.loginFailed()
-        return
+        this.loginFailed();
+        return;
       }
-      this.error = false
-      alert(req.data.msg)
-      localStorage.token = req.data.token
-      this.$store.dispatch('login')
+      this.error = false;
+      alert(req.data.msg);
+      localStorage.token = req.data.token;
+      this.$store.dispatch("login");
       //this.$router.replace(this.$route.query.redirect || '/profile')
-      this.$router.push('cabinet')
+      this.$router.push("cabinet");
     },
 
-    loginFailed () {
-      this.error = 'Login failed!'
-      this.$store.dispatch('logout')
-      delete localStorage.token
+    loginFailed() {
+      this.error = "Email or password failed!";
+      alert(this.error)
+      this.$store.dispatch("logout");
+      delete localStorage.token;
     }
-}
-}
+  }
+};
 </script>
 
