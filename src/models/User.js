@@ -24,7 +24,8 @@ export default class User {
     this.id = userCredentials._id;
     this.name = userCredentials.name;
     // this.admin = admin
-    this.email = userCredentials.email
+    this.email = userCredentials.email;
+    this.wallets = [];
   }
 
   //   get isAdmin () {

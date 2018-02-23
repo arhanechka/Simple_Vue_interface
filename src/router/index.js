@@ -39,8 +39,9 @@ export default new Router({
       component: Logout
     },
     {
-      path: '/token',
-      name: 'Token',
+      path: '/token/:wallet',
+      name: 'token',
+      props: { default: true},
       component: Token
     }
 

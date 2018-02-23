@@ -21,7 +21,8 @@
     <tbody> 
      <tr v-for="wallet in wallets">
       <td>
-        <router-link :to="{name: 'cabinet', params: {wallet_id: wallet._id}}">{{ wallet.public }}</router-link>
+       <router-link :to="{name: 'token', params: {wallet: wallet}}">{{ wallet.public }}</router-link>
+      <!-- <router-link :to="{ name: 'bar', params: { id: 123 }}"> -->
       </td>
       <td>
         {{ wallet.balance }}
@@ -83,9 +84,11 @@ export default {
         .get(url)
         .then(response => {
           console.log(response);
-          alert(response.data.wallets.length + " wallets has been found!");
+          // alert(response.data.wallets.length + " wallets has been found!");
           this.wallets = response.data.wallets;
-          this.$router.redirect('cabinet');
+          this.currentUser.wallets = this.wallets;
+          // console.log(this.currentUser.wallets)
+          this.$router.push('cabinet');
         })
         .catch(error => {
           console.log(error);
