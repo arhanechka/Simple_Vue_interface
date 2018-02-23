@@ -72,7 +72,6 @@ export default {
         console.log("current user login = " + JSON.stringify(this.currentUser));
         this.name = this.currentUser.name;
         this.id = this.currentUser.id;
-        
       }
     },
     getWallet() {

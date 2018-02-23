@@ -5,13 +5,13 @@
   <h3>Total supply of AVRA: <span id="supply">{{totalSupply}}</span> </h3>
   <h4>You can buy Avra at this address: <span id="contract_address">{{crowdsaleAddress}}</span></h4>
   <h3>You have <span id="balance">{{balance}}</span> AVRA</h3>
-   <button id="check" class="btn btn-success disabled" v-on:click="checkBalance">Check your balance</button>
+   <button id="check" class="btn btn-success disabled" v-on:click="getInfo">Check your balance</button>
   <br><br>
   <h3>Buy Avra</h3>
   <label for="amount">Amount:</label>
-  <input type="text" class="form-control"  id="amount" placeholder="e.g., 95">
+  <input type="text" class="form-control"  id="amount" placeholder="e.g., 95" v-model="amount">
   <!--<br><label for="receiver">To Address:</label><input type="text" id="receiver" placeholder="e.g., 0x93e66d9baea28c17d9fc393b53e3fbdd76899dae"></input>-->
-  <br><button id="send" class="btn btn-primary" onclick="App.sendCoin()">Buy Avra</button>
+  <br><button id="send" class="btn btn-primary" v-on:click="buyToken">Buy Avra</button>
   <br>
   <h3>Transfer Avra</h3>
   <label for="amount1">Amount:</label>
@@ -33,30 +33,43 @@ export default {
 
   data() {
     return {
-      wallets: [],
+      wallet: "",
       name: "",
       id: this.$route.id,
       password: "b052ad71d9fcd26e996e13d076a7eb11827043d5",
       totalSupply: 0,
       crowdsaleAddress: "",
-      balance: 0
+      balance: 0,
+      amount: ""
     };
   },
   computed: {
     ...mapGetters({ currentUser: "currentUser" })
   },
   created() {
+    this.checkCurrentLogin();
     this.getInfo();
   },
   updated() {
+    this.checkCurrentLogin();
     this.getInfo();
   },
   methods: {
+    checkCurrentLogin() {
+      if (this.currentUser) {
+        console.log("current user login = " + JSON.stringify(this.currentUser));
+        this.name = this.currentUser.name;
+        this.id = this.currentUser.id;
+        if (this.wallet == "") {
+          this.wallet = this.$route.params.wallet;
+        }
+        console.log(this.wallet);
+      }
+    },
     getInfo() {
-      let wallet = this.$route.params.wallet;
-      console.log(wallet);
-      let param = this.currentUser.wallets;
-      let url = "avratoken/getInfo/" + wallet._id;
+      let url = "avratoken/getInfo/" + this.wallet._id;
+      console.log("url");
+      console.log(url);
       this.$http
         .get(url)
         .then(response => {
@@ -69,31 +82,20 @@ export default {
           console.log(error);
         });
     },
-    onSubmit(evt) {
-      evt.preventDefault();
-      console.log("current user = " + JSON.stringify(this.currentUser));
-      let param = this.currentUser.id;
-      let url = "/wallet/wallets/" + param;
+    buyToken() {
+      console.log("this.wallet");
+
+      console.log(this.wallet.public);
+      let param = {
+        amount: this.amount,
+        wallet: this.wallet.public}
+      console.log("param:");
+      console.log(param);
+      let url = "avratoken/buyToken/";
+      console.log("url in buy");
       console.log(url);
       this.$http
-        .get(url)
-        .then(response => {
-          console.log(response);
-          alert(response.data.msg);
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
-    checkBalance() {
-      if (event) event.preventDefault();
-      console.log(this.id);
-      let wallet = this.$route.params.wallet;
-      console.log(wallet);
-      let param = this.currentUser.wallets;
-      let url = "avratoken/checkbalance/" + wallet._id;
-      this.$http
-        .post(url)
+        .post(url, param)
         .then(response => {
           console.log(response);
           this.balance = response.data.account;
